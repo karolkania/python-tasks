@@ -72,6 +72,10 @@ def rate_car(car_rate_in: schemas.CarRateIn, db: Session = Depends(get_db)):
     - Add a rate for a car from 1 to 5
     """
     car = crud.get_car_by_id(db=db, car_id=car_rate_in.id)
+    if car is None:
+        msg = f"the car id: '{car_rate_in.id}' was not found"
+        raise HTTPException(status_code=404, detail=msg)
+
     if car.votes is None:
         car.votes = 1
     else:
