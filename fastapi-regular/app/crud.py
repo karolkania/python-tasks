@@ -36,4 +36,4 @@ def rate_car(db: Session, car: schemas.CarDB):
 
 
 def get_popular(db: Session):
-    return db.query(models.Car).order_by(models.Car.votes.desc()).limit(3).all()
+    return db.query(models.Car).filter(models.Car.votes != None).order_by(models.Car.votes.desc()).all()
