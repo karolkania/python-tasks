@@ -1,10 +1,5 @@
-# Development env
+# notes
 
-- `$ virtualenv --python 3.9 .venv`
-- `$ . .venv/bin/activate`
-- `$ pip install poetry`
+## poetry -> requirements.txt
 
-## FastAPI-regular
-
-- `cd fastapi-regular`
-- `poetry install --no-root`
+- `poetry export -f requirements.txt --output requirements.txt`
