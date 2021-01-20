@@ -1,5 +1,5 @@
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class CarBase(BaseModel):
@@ -14,9 +14,19 @@ class CarIn(CarBase):
 class Car(CarBase):
     id: int
     rating: int = None
+    votes: int = None
 
     class Config:
         orm_mode = True
+
+
+class CarDB(Car):
+    votesum: int = None
+
+
+class CarRateIn(BaseModel):
+    id: int
+    rating: int = Field(..., gt=0, lt=6)
 
 
 class VehicleListingModel(BaseModel):

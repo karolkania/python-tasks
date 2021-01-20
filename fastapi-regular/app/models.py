@@ -11,4 +11,5 @@ class Car(Base):
     make = Column(String, index=True)
     model = Column(String, index=True)
     rating = Column(Integer, default=None)
+    votesum = Column(Integer, default=None)
     votes = Column(Integer, default=None)

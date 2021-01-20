@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 
 
-def get_car(db: Session, car_id: int):
+def get_car_by_id(db: Session, car_id: int):
     return db.query(models.Car).filter(models.Car.id == car_id).first()
 
 
@@ -21,3 +21,19 @@ def add_car(db: Session, car: schemas.CarIn):
     db.commit()
     db.refresh(db_car)
     return db_car
+
+
+def rate_car(db: Session, car: schemas.CarDB):
+    db.query(models.Car).filter(models.Car.id == car.id).update(
+        {
+            models.Car.rating: car.rating,
+            models.Car.votes: car.votes,
+            models.Car.votesum: car.votesum,
+        }
+    )
+    db.commit()
+    return db.query(models.Car).filter(models.Car.id == car.id).first()
+
+
+def get_popular(db: Session):
+    return db.query(models.Car).order_by(models.Car.votes.desc()).limit(3).all()
